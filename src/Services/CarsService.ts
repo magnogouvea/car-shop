@@ -15,6 +15,21 @@ class CarsService {
     const result = await this.model.newCar(car);
     return this.carDomain(result);
   }
+
+  public getCars = async (): Promise<Car[]> => {
+    const cars = await this.model.getCars();
+    return cars.map((car) => this.carDomain(car));
+  };
+
+  public getCarById = async (id: string): Promise<Car | 422 | 404> => {
+    const result = await this.model.getCarById(id);
+
+    if (typeof result === 'number') return 422;
+
+    if (result === null) return 404;
+
+    return this.carDomain(result);
+  };
 }
 
 export default CarsService;

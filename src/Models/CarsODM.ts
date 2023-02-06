@@ -1,4 +1,4 @@
-import { Model, Schema, model, models } from 'mongoose';
+import { Model, Schema, model, models, isValidObjectId } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 
 class CarsODM {
@@ -19,6 +19,15 @@ class CarsODM {
   }
 
   newCar = async (obj: ICar): Promise<ICar> => this.model.create({ ...obj });
+
+  getCars = async (): Promise<ICar[]> => this.model.find({});
+
+  getCarById = async (id: string): Promise<ICar | null | number> => {
+    if (!isValidObjectId(id)) {
+      return 422;
+    }
+    return this.model.findOne({ _id: id });
+  };
 }
 
 export default CarsODM;
