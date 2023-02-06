@@ -28,6 +28,17 @@ class CarsODM {
     }
     return this.model.findOne({ _id: id });
   };
+
+  carUpdate = async (id: string, car: ICar): Promise<ICar | 422 | 404> => {
+    if (!isValidObjectId(id)) { 
+      return 422; 
+    }
+    const updateResult = await this.model.findByIdAndUpdate(id, car);
+    if (!updateResult) {
+      return 404;
+    }
+    return { id, ...car };
+  };
 }
 
 export default CarsODM;

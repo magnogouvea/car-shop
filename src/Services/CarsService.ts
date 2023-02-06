@@ -30,6 +30,16 @@ class CarsService {
 
     return this.carDomain(result);
   };
+
+  public carUpdate = async (id: string, car: ICar): Promise<Car | 422 | 404> => {
+    const result = await this.model.carUpdate(id, car);
+
+    if (typeof result !== 'number') {
+      return this.carDomain(result);
+    }
+
+    return result;
+  };
 }
 
 export default CarsService;
