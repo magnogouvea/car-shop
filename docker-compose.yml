@@ -46,7 +46,7 @@ services:
     ports:
       # Garanta que não haverá conflitos de porta com um mongodb que esteja
       # rodando localmente
-      - 27017:27017
+      - 27018:27018
 
 # Lista de redes que os containeres irão utilizar
 networks:
