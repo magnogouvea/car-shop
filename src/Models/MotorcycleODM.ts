@@ -25,4 +25,15 @@ export default class MotorcycleODM extends AbstractODM<IMotorcycle> {
     }
     return this.model.findOne({ _id: id });
   };
+
+  bikeUpdate = async (id: string, bike: IMotorcycle): Promise<IMotorcycle | 422 | 404> => {
+    if (!isValidObjectId(id)) { 
+      return 422; 
+    }
+    const updateResult = await this.model.findByIdAndUpdate(id, bike);
+    if (!updateResult) {
+      return 404;
+    }
+    return { id, ...bike };
+  };
 }

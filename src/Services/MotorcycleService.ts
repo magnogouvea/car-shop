@@ -27,4 +27,14 @@ export default class MotorcycleService {
     if (result === null) return 404;
     return this.bikeDomain(result);
   };
+
+  public bikeUpdate = async (id: string, bike: IMotorcycle): Promise<Motorcycle | 422 | 404> => {
+    const result = await this.model.bikeUpdate(id, bike);
+
+    if (typeof result !== 'number') {
+      return this.bikeDomain(result);
+    }
+
+    return result;
+  };
 }

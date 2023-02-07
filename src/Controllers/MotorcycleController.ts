@@ -40,4 +40,18 @@ export default class MotorcycleController {
 
     return this.res.status(404).json({ message: 'Motorcycle not found' });
   }
+
+  public async bikeUpdate() {
+    const { id } = this.req.params;
+    const body = { ...this.req.body };
+    const result = await this.service.bikeUpdate(id, body);
+
+    if (typeof result !== 'number') {
+      return this.res.status(200).json(result);
+    }
+
+    if (result === 422) return this.res.status(422).json({ message: 'Invalid mongo id' });
+
+    this.res.status(404).json({ message: 'Motorcycle not found' });
+  }
 }
